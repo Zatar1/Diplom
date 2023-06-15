@@ -1,0 +1,378 @@
+USE [Diplom]
+GO
+/****** Object:  Table [dbo].[SalesItems]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SalesItems](
+	[SaleId] [int] NOT NULL,
+	[ItemId] [int] NOT NULL,
+	[Info] [varchar](200) NULL,
+ CONSTRAINT [PK_SalesItems] PRIMARY KEY CLUSTERED 
+(
+	[SaleId] ASC,
+	[ItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TClients]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TClients](
+	[ClientId] [int] IDENTITY(1,1) NOT NULL,
+	[ClientSurname] [varchar](50) NOT NULL,
+	[ClientName] [varchar](50) NOT NULL,
+	[ClientPatronymic] [varchar](50) NULL,
+	[ClientPhone] [varchar](11) NOT NULL,
+	[ClientEmail] [varchar](80) NULL,
+	[ClientFIO] [varchar](350) NULL,
+ CONSTRAINT [PK_Clients] PRIMARY KEY CLUSTERED 
+(
+	[ClientId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TItems]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TItems](
+	[ItemId] [int] IDENTITY(1,1) NOT NULL,
+	[ItemType] [int] NOT NULL,
+	[ItemMark] [int] NOT NULL,
+	[ItemName] [varchar](50) NOT NULL,
+	[ItemCount] [int] NOT NULL,
+	[ItemCost] [int] NOT NULL,
+	[ItemDetails] [varchar](200) NULL,
+	[ItemInf] [varchar](350) NULL,
+ CONSTRAINT [PK_Items] PRIMARY KEY CLUSTERED 
+(
+	[ItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TItemsTypes]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TItemsTypes](
+	[ItemTypeId] [int] IDENTITY(1,1) NOT NULL,
+	[ItemTypeName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_ItemsTypes] PRIMARY KEY CLUSTERED 
+(
+	[ItemTypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TMark]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TMark](
+	[MarkId] [int] IDENTITY(1,1) NOT NULL,
+	[MarkName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Models] PRIMARY KEY CLUSTERED 
+(
+	[MarkId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TOrders]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TOrders](
+	[OrderId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderType] [int] NOT NULL,
+	[OrderClient] [int] NULL,
+	[OrderDetails] [varchar](200) NULL,
+	[OrderDate] [date] NOT NULL,
+	[OrderUser] [int] NOT NULL,
+	[OrderCost] [int] NOT NULL,
+	[OrderComplete] [bit] NOT NULL,
+ CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TOrdersTypes]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TOrdersTypes](
+	[OrderTypeId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderTypeName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_OrdersTypes] PRIMARY KEY CLUSTERED 
+(
+	[OrderTypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TSales]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TSales](
+	[SaleId] [int] IDENTITY(1,1) NOT NULL,
+	[SaleClient] [int] NULL,
+	[SaleDetails] [varchar](200) NULL,
+	[SaleDate] [date] NOT NULL,
+	[SaleUser] [int] NOT NULL,
+	[SaleCost] [int] NOT NULL,
+ CONSTRAINT [PK_Sales] PRIMARY KEY CLUSTERED 
+(
+	[SaleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TUsers]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TUsers](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[UserSurname] [varchar](50) NOT NULL,
+	[UserName] [varchar](50) NOT NULL,
+	[UserPatronymic] [varchar](50) NULL,
+	[UserLogin] [varchar](50) NOT NULL,
+	[UserPassword] [varchar](12) NOT NULL,
+	[UserRole] [int] NOT NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TUsersRoles]    Script Date: 13.06.2023 11:40:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TUsersRoles](
+	[RoleId] [int] IDENTITY(1,1) NOT NULL,
+	[RoleName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_TUsersRoles] PRIMARY KEY CLUSTERED 
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[SalesItems] ([SaleId], [ItemId], [Info]) VALUES (26, 1, N'Картридж CACTUS  CS-Q2612AS')
+GO
+INSERT [dbo].[SalesItems] ([SaleId], [ItemId], [Info]) VALUES (26, 2002, N'Чернила CACTUS  CS-EPT6641-1000')
+GO
+INSERT [dbo].[SalesItems] ([SaleId], [ItemId], [Info]) VALUES (30, 2, N'Тонер CACTUS  CS-RK-TN1075')
+GO
+INSERT [dbo].[SalesItems] ([SaleId], [ItemId], [Info]) VALUES (30, 2002, N'Чернила CACTUS  CS-EPT6641-1000')
+GO
+SET IDENTITY_INSERT [dbo].[TClients] ON 
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (1, N'Частное лицо', N' ', N'', N' ', N'', N'Частное лицо')
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (2, N'Шевчук', N'Ольга', N'Николаевна', N'89247625519', NULL, N'Шевчук Ольга Николаевна')
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (3, N'Горлов', N'Николай', NULL, N'89145228864', N'GorlovNikola82@yandex.com', N'Горлов Николай')
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (4, N'Мыловаров', N'Петр ', N'Евгеньевич', N'89146500921', N'SoapCooker622@gmail.com', N'Мыловаров Петр Евгеньевич ')
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (5, N'Захаров', N'Константин', N'Маркович', N'89965486172', N'Zaharov1993@mail.ru', N'Захаров Константин Маркович')
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (7, N'Кузнецова', N'Наталья', N'Ивановна', N'89967528831', N'Kuznezcova87@gmail.com', N'Кузнецова Наталья Ивановна')
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (3024, N'Сидоров', N'Иван', N'Васильевич', N'89900898611', N'Sydor1992@gmail.com', N'Сидоров Иван Васильевич')
+GO
+INSERT [dbo].[TClients] ([ClientId], [ClientSurname], [ClientName], [ClientPatronymic], [ClientPhone], [ClientEmail], [ClientFIO]) VALUES (3025, N'Васильев', N'Григорий', N'Алексеевич', N'89990414471', N'VasilievGrig@gmail.com', N'Васильев Григорий Алексеевич')
+GO
+SET IDENTITY_INSERT [dbo].[TClients] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TItems] ON 
+GO
+INSERT [dbo].[TItems] ([ItemId], [ItemType], [ItemMark], [ItemName], [ItemCount], [ItemCost], [ItemDetails], [ItemInf]) VALUES (1, 27, 1, N'CS-Q2612AS', 4, 350, N'Совместимость: LJ L010, 1012, 1015, 1018, 1020, 1020Plus, 1022, 3015, 3020', N'Картридж CACTUS  CS-Q2612AS')
+GO
+INSERT [dbo].[TItems] ([ItemId], [ItemType], [ItemMark], [ItemName], [ItemCount], [ItemCost], [ItemDetails], [ItemInf]) VALUES (2, 31, 2, N'CS-RK-TN1075', 6, 350, N'Совместимость: Brother HL-1110, 1112, 1510/1512, 1810, 1815', N'Тонер Colortek CS-RK-TN1075')
+GO
+INSERT [dbo].[TItems] ([ItemId], [ItemType], [ItemMark], [ItemName], [ItemCount], [ItemCost], [ItemDetails], [ItemInf]) VALUES (2002, 28, 1, N'CS-EPT6641-1000', 6, 1100, N'черныe 1000мл для Epson', N'Чернила CACTUS  CS-EPT6641-1000')
+GO
+SET IDENTITY_INSERT [dbo].[TItems] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TItemsTypes] ON 
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (1, N'Абсорбер')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (26, N'Бумага')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (27, N'Картридж')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (28, N'Чернила')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (29, N'Твердые чернила')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (30, N'3D-печать')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (31, N'Тонер')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (32, N'Девелопер')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (33, N'Фотобарабан')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (1002, N'Фотобумага')
+GO
+INSERT [dbo].[TItemsTypes] ([ItemTypeId], [ItemTypeName]) VALUES (1003, N'Пленка для ламинирвоания')
+GO
+SET IDENTITY_INSERT [dbo].[TItemsTypes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TMark] ON 
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1, N'CACTUS ')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (2, N'Colortek')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (3, N'Hi-Black')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1002, N'HP')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1003, N'KYOCERA')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1004, N'Sakura')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1005, N'Konica Minolta')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1006, N'NV Print')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1007, N'CET')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1008, N'Xerox')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1009, N'GalaPrint')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1010, N'Solution Print')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1011, N'Revcol')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1012, N'Другой')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1013, N'Lomond')
+GO
+INSERT [dbo].[TMark] ([MarkId], [MarkName]) VALUES (1014, N'WF')
+GO
+SET IDENTITY_INSERT [dbo].[TMark] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TOrders] ON 
+GO
+INSERT [dbo].[TOrders] ([OrderId], [OrderType], [OrderClient], [OrderDetails], [OrderDate], [OrderUser], [OrderCost], [OrderComplete]) VALUES (1, 1, 4, N'30х2 А4', CAST(N'2023-05-09' AS Date), 1004, 240, 1)
+GO
+INSERT [dbo].[TOrders] ([OrderId], [OrderType], [OrderClient], [OrderDetails], [OrderDate], [OrderUser], [OrderCost], [OrderComplete]) VALUES (5, 3, 3, N'Поломка термопленки на принтере HP Laser 107w 4ZB78A, замена.', CAST(N'2023-05-15' AS Date), 1, 1800, 1)
+GO
+INSERT [dbo].[TOrders] ([OrderId], [OrderType], [OrderClient], [OrderDetails], [OrderDate], [OrderUser], [OrderCost], [OrderComplete]) VALUES (7, 1, 4, N'60х1 А4', CAST(N'2023-04-28' AS Date), 1004, 600, 1)
+GO
+INSERT [dbo].[TOrders] ([OrderId], [OrderType], [OrderClient], [OrderDetails], [OrderDate], [OrderUser], [OrderCost], [OrderComplete]) VALUES (22, 3, 4, N'Поломка печатающей головки принтера Canon i350, замена', CAST(N'2023-06-05' AS Date), 1, 1200, 0)
+GO
+INSERT [dbo].[TOrders] ([OrderId], [OrderType], [OrderClient], [OrderDetails], [OrderDate], [OrderUser], [OrderCost], [OrderComplete]) VALUES (34, 5, 5, N'Фигурка Hollow Knight - Hornet 15x15x5см', CAST(N'2023-06-01' AS Date), 1004, 1000, 0)
+GO
+INSERT [dbo].[TOrders] ([OrderId], [OrderType], [OrderClient], [OrderDetails], [OrderDate], [OrderUser], [OrderCost], [OrderComplete]) VALUES (2024, 4, 1, N'Заправка картриджей принтера HP LaserJet Pro P1102', CAST(N'2023-06-06' AS Date), 1004, 250, 0)
+GO
+INSERT [dbo].[TOrders] ([OrderId], [OrderType], [OrderClient], [OrderDetails], [OrderDate], [OrderUser], [OrderCost], [OrderComplete]) VALUES (2025, 4, 3, N'Прочистка печатающей головки принтера Cannon PIXMA G1820', CAST(N'2023-05-29' AS Date), 1, 600, 1)
+GO
+SET IDENTITY_INSERT [dbo].[TOrders] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TOrdersTypes] ON 
+GO
+INSERT [dbo].[TOrdersTypes] ([OrderTypeId], [OrderTypeName]) VALUES (1, N'Печать')
+GO
+INSERT [dbo].[TOrdersTypes] ([OrderTypeId], [OrderTypeName]) VALUES (3, N'Ремонт')
+GO
+INSERT [dbo].[TOrdersTypes] ([OrderTypeId], [OrderTypeName]) VALUES (4, N'Обслуживание')
+GO
+INSERT [dbo].[TOrdersTypes] ([OrderTypeId], [OrderTypeName]) VALUES (5, N'3D-печать')
+GO
+SET IDENTITY_INSERT [dbo].[TOrdersTypes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TSales] ON 
+GO
+INSERT [dbo].[TSales] ([SaleId], [SaleClient], [SaleDetails], [SaleDate], [SaleUser], [SaleCost]) VALUES (26, 3, N'Нет подробностей', CAST(N'2023-06-09' AS Date), 1004, 1450)
+GO
+INSERT [dbo].[TSales] ([SaleId], [SaleClient], [SaleDetails], [SaleDate], [SaleUser], [SaleCost]) VALUES (30, 3, N'Нет подробностей', CAST(N'2023-06-09' AS Date), 1, 1450)
+GO
+SET IDENTITY_INSERT [dbo].[TSales] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TUsers] ON 
+GO
+INSERT [dbo].[TUsers] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserRole]) VALUES (1, N'Попов', N'Михаил', N'Михайлович', N'Popov', N'12345', 1)
+GO
+INSERT [dbo].[TUsers] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserRole]) VALUES (2, N'a', N'a', N'a', N'a', N'a', 1)
+GO
+INSERT [dbo].[TUsers] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserRole]) VALUES (1002, N'q', N'q', N'q', N'q', N'q', 2)
+GO
+INSERT [dbo].[TUsers] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserRole]) VALUES (1004, N'Петров', N'Василий', N'Иванович', N'Petrov', N'12345', 2)
+GO
+SET IDENTITY_INSERT [dbo].[TUsers] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TUsersRoles] ON 
+GO
+INSERT [dbo].[TUsersRoles] ([RoleId], [RoleName]) VALUES (1, N'Admin')
+GO
+INSERT [dbo].[TUsersRoles] ([RoleId], [RoleName]) VALUES (2, N'Worker')
+GO
+SET IDENTITY_INSERT [dbo].[TUsersRoles] OFF
+GO
+ALTER TABLE [dbo].[SalesItems]  WITH CHECK ADD  CONSTRAINT [FK_SalesItems_TItems] FOREIGN KEY([ItemId])
+REFERENCES [dbo].[TItems] ([ItemId])
+GO
+ALTER TABLE [dbo].[SalesItems] CHECK CONSTRAINT [FK_SalesItems_TItems]
+GO
+ALTER TABLE [dbo].[SalesItems]  WITH CHECK ADD  CONSTRAINT [FK_SalesItems_TSales] FOREIGN KEY([SaleId])
+REFERENCES [dbo].[TSales] ([SaleId])
+GO
+ALTER TABLE [dbo].[SalesItems] CHECK CONSTRAINT [FK_SalesItems_TSales]
+GO
+ALTER TABLE [dbo].[TItems]  WITH CHECK ADD  CONSTRAINT [FK_Items_ItemsTypes] FOREIGN KEY([ItemType])
+REFERENCES [dbo].[TItemsTypes] ([ItemTypeId])
+GO
+ALTER TABLE [dbo].[TItems] CHECK CONSTRAINT [FK_Items_ItemsTypes]
+GO
+ALTER TABLE [dbo].[TItems]  WITH CHECK ADD  CONSTRAINT [FK_Items_Models] FOREIGN KEY([ItemMark])
+REFERENCES [dbo].[TMark] ([MarkId])
+GO
+ALTER TABLE [dbo].[TItems] CHECK CONSTRAINT [FK_Items_Models]
+GO
+ALTER TABLE [dbo].[TOrders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_Clients] FOREIGN KEY([OrderClient])
+REFERENCES [dbo].[TClients] ([ClientId])
+GO
+ALTER TABLE [dbo].[TOrders] CHECK CONSTRAINT [FK_Orders_Clients]
+GO
+ALTER TABLE [dbo].[TOrders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_OrdersTypes] FOREIGN KEY([OrderType])
+REFERENCES [dbo].[TOrdersTypes] ([OrderTypeId])
+GO
+ALTER TABLE [dbo].[TOrders] CHECK CONSTRAINT [FK_Orders_OrdersTypes]
+GO
+ALTER TABLE [dbo].[TOrders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_Users] FOREIGN KEY([OrderUser])
+REFERENCES [dbo].[TUsers] ([UserId])
+GO
+ALTER TABLE [dbo].[TOrders] CHECK CONSTRAINT [FK_Orders_Users]
+GO
+ALTER TABLE [dbo].[TSales]  WITH CHECK ADD  CONSTRAINT [FK_Sales_Clients] FOREIGN KEY([SaleClient])
+REFERENCES [dbo].[TClients] ([ClientId])
+GO
+ALTER TABLE [dbo].[TSales] CHECK CONSTRAINT [FK_Sales_Clients]
+GO
+ALTER TABLE [dbo].[TSales]  WITH CHECK ADD  CONSTRAINT [FK_Sales_Users] FOREIGN KEY([SaleUser])
+REFERENCES [dbo].[TUsers] ([UserId])
+GO
+ALTER TABLE [dbo].[TSales] CHECK CONSTRAINT [FK_Sales_Users]
+GO
+ALTER TABLE [dbo].[TUsers]  WITH CHECK ADD  CONSTRAINT [FK_TUsers_TUsersRoles] FOREIGN KEY([UserRole])
+REFERENCES [dbo].[TUsersRoles] ([RoleId])
+GO
+ALTER TABLE [dbo].[TUsers] CHECK CONSTRAINT [FK_TUsers_TUsersRoles]
+GO
