@@ -1,0 +1,419 @@
+USE [Kosmetika]
+GO
+/****** Object:  Table [dbo].[FizFace]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FizFace](
+	[FizFaceId] [int] IDENTITY(1,1) NOT NULL,
+	[FizFaceSurname] [varchar](50) NOT NULL,
+	[FizFaceName] [varchar](50) NOT NULL,
+	[FizFacePatronymic] [varchar](50) NULL,
+	[FizFacePassportSery] [int] NOT NULL,
+	[FizFacePassportNumber] [int] NOT NULL,
+	[FizFaceBirthdayDate] [date] NOT NULL,
+	[FizFaceAdress] [varchar](350) NOT NULL,
+	[FizFaceEmail] [varchar](150) NOT NULL,
+	[FizFacePassword] [varchar](7) NOT NULL,
+ CONSTRAINT [PK_FizFace] PRIMARY KEY CLUSTERED 
+(
+	[FizFaceId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[History]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[History](
+	[HistoryId] [int] IDENTITY(1,1) NOT NULL,
+	[HistoryUser] [int] NULL,
+	[HistoryService] [int] NULL,
+	[HistoryDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_History] PRIMARY KEY CLUSTERED 
+(
+	[HistoryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Orders]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Orders](
+	[OrderId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderStartDateTime] [datetime] NOT NULL,
+	[OrderFizFace] [int] NULL,
+	[OrderStatus] [int] NOT NULL,
+	[OrderFinishDateTime] [datetime] NULL,
+	[OrderUser] [int] NOT NULL,
+	[OrderTimeComplete] [int] NOT NULL,
+	[OrderCost] [int] NOT NULL,
+	[OrderYrFace] [int] NULL,
+ CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrdersStatus]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrdersStatus](
+	[OrderStatusId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderStatusName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_OrdersStatus] PRIMARY KEY CLUSTERED 
+(
+	[OrderStatusId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Services]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Services](
+	[ServiceId] [int] IDENTITY(1,1) NOT NULL,
+	[ServiceName] [varchar](100) NOT NULL,
+	[ServiceCode] [varchar](12) NOT NULL,
+	[ServiceTimeComplete] [int] NOT NULL,
+	[ServiceMistake] [varchar](20) NOT NULL,
+	[ServiceCost] [int] NOT NULL,
+ CONSTRAINT [PK_Services] PRIMARY KEY CLUSTERED 
+(
+	[ServiceId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ServicesOrders]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ServicesOrders](
+	[ServiceId] [int] NOT NULL,
+	[OrderId] [int] NOT NULL,
+	[IsComplete] [bit] NOT NULL,
+	[HistoryId] [int] NULL,
+ CONSTRAINT [PK_ServicesOrders] PRIMARY KEY CLUSTERED 
+(
+	[ServiceId] ASC,
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ServicesUsers]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ServicesUsers](
+	[ServiceId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+ CONSTRAINT [PK_ServicesUsers] PRIMARY KEY CLUSTERED 
+(
+	[ServiceId] ASC,
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserRoles]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserRoles](
+	[UserRoleId] [int] IDENTITY(1,1) NOT NULL,
+	[UserRoleName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_UserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserRoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[UserSurname] [varchar](50) NOT NULL,
+	[UserName] [varchar](50) NOT NULL,
+	[UserPatronymic] [varchar](50) NULL,
+	[UserLogin] [varchar](50) NOT NULL,
+	[UserPassword] [varchar](50) NOT NULL,
+	[UserLastOnline] [datetime] NOT NULL,
+	[UserRole] [int] NOT NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[YrFace]    Script Date: 15.06.2023 17:26:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[YrFace](
+	[YrFaceId] [int] IDENTITY(1,1) NOT NULL,
+	[YrFaceName] [varchar](50) NOT NULL,
+	[YrFaceAdress] [varchar](350) NOT NULL,
+	[YrFaceINN] [varchar](10) NOT NULL,
+	[YrFaceRC] [varchar](11) NOT NULL,
+	[YrFaceBIK] [varchar](9) NOT NULL,
+	[YrFaceController] [varchar](150) NOT NULL,
+	[YrFaceContact] [varchar](150) NOT NULL,
+	[YrFaceContactPhone] [varchar](11) NOT NULL,
+	[YrFaceEmail] [varchar](50) NOT NULL,
+	[YrFacePassword] [varchar](6) NOT NULL,
+ CONSTRAINT [PK_YrFace] PRIMARY KEY CLUSTERED 
+(
+	[YrFaceId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[OrdersStatus] ON 
+GO
+INSERT [dbo].[OrdersStatus] ([OrderStatusId], [OrderStatusName]) VALUES (1, N'Новая')
+GO
+INSERT [dbo].[OrdersStatus] ([OrderStatusId], [OrderStatusName]) VALUES (2, N'На исследовании')
+GO
+INSERT [dbo].[OrdersStatus] ([OrderStatusId], [OrderStatusName]) VALUES (3, N'Закрыта')
+GO
+SET IDENTITY_INSERT [dbo].[OrdersStatus] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Services] ON 
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (1, N'Содержание хрома
+', N'8HFJHG443
+', 12, N'0.04
+', 1100)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (2, N'Содержание никеля
+', N'87FDJKHJ
+', 72, N'0.012
+', 800)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (3, N'Содержание ртути
+', N'JUR8R
+', 10, N'0.06
+', 930)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (4, N'Содержание хлора
+', N'JKFBJ09
+', 2, N'0.011
+', 450)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (5, N'Проверка концентрации основного компонента
+', N'63748HF
+', 23, N'0.012
+', 1200)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (6, N'Содержание аллергенов
+', N'JFH7382
+', 13, N'1%
+', 3000)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (7, N'Однородность состава
+', N'OIJNB12
+', 24, N'1%
+', 450)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (9, N'Соответствие состава ГОСТ
+', N'BSFBHV63
+', 36, N'5%
+', 1000)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (10, N'Соответствие состава ТУ
+', N'HJBUJE21J
+', 12, N'5%
+', 1000)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (13, N'Проверка на высоких температурах
+', N'DHBGFY563
+', 5, N'1 градус
+', 12000)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (15, N'Проверка на высоких температурах
+', N'JHVSJF6
+', 48, N'1 градус
+', 12000)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (16, N'Герметичность упаковки
+', N'DJHGBS982
+', 4, N'0.03
+', 300)
+GO
+INSERT [dbo].[Services] ([ServiceId], [ServiceName], [ServiceCode], [ServiceTimeComplete], [ServiceMistake], [ServiceCost]) VALUES (17, N'Соответствие срокам годности
+', N'638VVNQ3
+', 6, N'1 мес
+', 600)
+GO
+SET IDENTITY_INSERT [dbo].[Services] OFF
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (1, 7)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (1, 17)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (2, 7)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (2, 17)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (3, 7)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (4, 7)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (4, 17)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (5, 8)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (5, 17)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (6, 8)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (6, 9)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (6, 15)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (6, 17)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (7, 8)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (7, 17)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (9, 8)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (10, 9)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (10, 15)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (13, 15)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (15, 9)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (15, 15)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (16, 9)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (16, 15)
+GO
+INSERT [dbo].[ServicesUsers] ([ServiceId], [UserId]) VALUES (17, 8)
+GO
+SET IDENTITY_INSERT [dbo].[UserRoles] ON 
+GO
+INSERT [dbo].[UserRoles] ([UserRoleId], [UserRoleName]) VALUES (1, N'Менеджер по работе с клиентами')
+GO
+INSERT [dbo].[UserRoles] ([UserRoleId], [UserRoleName]) VALUES (2, N'Администратор')
+GO
+INSERT [dbo].[UserRoles] ([UserRoleId], [UserRoleName]) VALUES (3, N'Лаборант
+')
+GO
+INSERT [dbo].[UserRoles] ([UserRoleId], [UserRoleName]) VALUES (4, N'Начальник ОТК
+')
+GO
+INSERT [dbo].[UserRoles] ([UserRoleId], [UserRoleName]) VALUES (6, N'Контролер ОТК
+')
+GO
+SET IDENTITY_INSERT [dbo].[UserRoles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Users] ON 
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (1, N'Иванов', N'Иван', N'Иванович', N'Ivanov@namecomp.ru
+', N'2L6KZG
+', CAST(N'2022-05-15T13:13:00.000' AS DateTime), 1)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (3, N'Петров', N'Петр', N'Петрович', N'petrov@namecomp.ru
+', N'uzWC67
+', CAST(N'2022-05-15T13:13:01.000' AS DateTime), 1)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (5, N'Федоров', N'Федор', N'Федорович', N'fedorov@namecomp.ru
+', N'8ntwUp', CAST(N'2022-05-15T13:13:02.000' AS DateTime), 2)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (7, N'Миронов', N'Вениамин', N'Куприянович', N'mironov@namecomp.ru
+', N'YOyhfR
+', CAST(N'2022-05-15T13:13:03.000' AS DateTime), 3)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (8, N'Ширяев', N'Ермолай', N'Вениаминович', N'shiryev@namecomp.ru
+', N'RSbvHv
+', CAST(N'2022-05-15T13:13:04.000' AS DateTime), 3)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (9, N'Игнатов', N'Кассиан', N'Васильевич', N'ignatov@namecomp.ru
+', N'rwVDh9
+', CAST(N'2022-05-15T13:13:05.000' AS DateTime), 3)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (10, N'Хохлов', N'Владимир', N'Мэлсович', N'hohlov@namecomp.ru
+', N'LdNyos
+', CAST(N'2022-05-15T13:13:06.000' AS DateTime), 4)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (12, N'Стрелков', N'Мстислав', N'Георгьевич', N'strelkov@namecomp.ru
+', N'gynQMT
+', CAST(N'2022-05-15T13:13:07.000' AS DateTime), 2)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (15, N'Беляева', N'Лилия', N'Наумовна', N'belyeva@@namecomp.ru
+', N'AtnDjr
+', CAST(N'2022-05-15T13:13:08.000' AS DateTime), 6)
+GO
+INSERT [dbo].[Users] ([UserId], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword], [UserLastOnline], [UserRole]) VALUES (17, N'Смирнова', N'Ульяна', N'Гордеевна', N'smirnova@@namecomp.ru
+', N'JlFRCZ
+', CAST(N'2022-05-15T13:13:09.000' AS DateTime), 6)
+GO
+SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_FizFace] FOREIGN KEY([OrderFizFace])
+REFERENCES [dbo].[FizFace] ([FizFaceId])
+GO
+ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_FizFace]
+GO
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_OrdersStatus] FOREIGN KEY([OrderStatus])
+REFERENCES [dbo].[OrdersStatus] ([OrderStatusId])
+GO
+ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_OrdersStatus]
+GO
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_Users] FOREIGN KEY([OrderUser])
+REFERENCES [dbo].[Users] ([UserId])
+GO
+ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_Users]
+GO
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_YrFace] FOREIGN KEY([OrderYrFace])
+REFERENCES [dbo].[YrFace] ([YrFaceId])
+GO
+ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_YrFace]
+GO
+ALTER TABLE [dbo].[ServicesOrders]  WITH CHECK ADD  CONSTRAINT [FK_ServicesOrders_History] FOREIGN KEY([HistoryId])
+REFERENCES [dbo].[History] ([HistoryId])
+GO
+ALTER TABLE [dbo].[ServicesOrders] CHECK CONSTRAINT [FK_ServicesOrders_History]
+GO
+ALTER TABLE [dbo].[ServicesOrders]  WITH CHECK ADD  CONSTRAINT [FK_ServicesOrders_Orders] FOREIGN KEY([OrderId])
+REFERENCES [dbo].[Orders] ([OrderId])
+GO
+ALTER TABLE [dbo].[ServicesOrders] CHECK CONSTRAINT [FK_ServicesOrders_Orders]
+GO
+ALTER TABLE [dbo].[ServicesOrders]  WITH CHECK ADD  CONSTRAINT [FK_ServicesOrders_Services] FOREIGN KEY([ServiceId])
+REFERENCES [dbo].[Services] ([ServiceId])
+GO
+ALTER TABLE [dbo].[ServicesOrders] CHECK CONSTRAINT [FK_ServicesOrders_Services]
+GO
+ALTER TABLE [dbo].[ServicesUsers]  WITH CHECK ADD  CONSTRAINT [FK_ServicesUsers_Services] FOREIGN KEY([ServiceId])
+REFERENCES [dbo].[Services] ([ServiceId])
+GO
+ALTER TABLE [dbo].[ServicesUsers] CHECK CONSTRAINT [FK_ServicesUsers_Services]
+GO
+ALTER TABLE [dbo].[ServicesUsers]  WITH CHECK ADD  CONSTRAINT [FK_ServicesUsers_Users] FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([UserId])
+GO
+ALTER TABLE [dbo].[ServicesUsers] CHECK CONSTRAINT [FK_ServicesUsers_Users]
+GO
+ALTER TABLE [dbo].[Users]  WITH CHECK ADD  CONSTRAINT [FK_Users_UserRoles] FOREIGN KEY([UserRole])
+REFERENCES [dbo].[UserRoles] ([UserRoleId])
+GO
+ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_Users_UserRoles]
+GO
