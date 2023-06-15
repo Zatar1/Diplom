@@ -1,0 +1,48 @@
+﻿<Page x:Class="Diplom.Sales.AddSalePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.Sales"
+      mc:Ignorable="d" 
+      d:DesignHeight="660" d:DesignWidth="1280"
+      Title="AddSalePage">
+
+    <Grid Background="#FFD9F3CA" Margin="0,0,0,60">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Клиент*" FontSize = "28" Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <TextBlock Text="Выбор товара*" Name="TxtBlockItem" Grid.Row="1" FontSize = "28" Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <TextBlock Grid.Row="4" Text="Подробности продажи " FontSize = "28" Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <TextBlock Grid.Row="6" Text="Стоимость: " FontSize = "28" Width="auto" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+
+        <ComboBox Grid.Column="1" FontSize = "22"  HorizontalAlignment="Left" SelectedItem="{Binding TClients}" IsTextSearchEnabled="True" MinWidth="250" Width="auto" IsEnabled="False" Name="ComboClientSale" DisplayMemberPath="ClientFIO"/>
+        <DataGrid Grid.Row="1" Grid.Column="1" FontSize="18" Grid.RowSpan="3" Margin="0,15,0,15" Width="600" Height="auto" MinHeight="160" HorizontalAlignment="Left" HeadersVisibility="None" Visibility="Hidden"
+                  Name="ItemsDataGrid" CanUserDeleteRows="False" AutoGenerateColumns="False" ItemsSource="{Binding listItemsViewModel}" SelectedItem="{Binding SelectedElement}" CellEditEnding="ItemsDataGrid_CellEditEnding">
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Width="*" SelectedItemBinding="{Binding selectedItem}" x:Name="Itm" DisplayMemberPath="ItemInf" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <ListBox Grid.Row="1" Grid.Column="1" FontSize="18" Grid.RowSpan="3" Margin="0,15,0,15" Width="600" Height="auto" MinHeight="160" HorizontalAlignment="Left"
+                  Name="ItemsListBox" ItemsSource="{Binding listItemsViewModel}" DisplayMemberPath="Info" IsEnabled="False" Visibility="Hidden" SelectedItem="{Binding SelectedElement}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" Width="600" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Name="TxtDetails" Text="{Binding SaleDetails}"  Height="auto" MinHeight="120" Margin="0,15,0,15" VerticalAlignment="Stretch"/>
+        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Width="150" IsEnabled="False" MaxLength="5" Name="TxtCost" PreviewTextInput="TxtCostChanged" Text="{Binding SaleCost}"/>
+
+        <Button Name="BtnSaveSale" Click="BtnSaveSaleClick" Grid.Column="1" Grid.Row="7" Width="200" HorizontalAlignment="Right" Margin="0,0,15,0">
+            <TextBlock FontSize = "28" Text="Сохранить"/>
+        </Button>
+    </Grid>
+</Page>

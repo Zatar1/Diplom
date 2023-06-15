@@ -1,0 +1,22 @@
+﻿<Page x:Class="Diplom.Items.AddTypeItem"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.Items"
+      mc:Ignorable="d" 
+      d:DesignHeight="660" d:DesignWidth="1280"
+      Title="">
+
+    <Grid Background="#FFD9F3CA" Margin="0,0,0,60">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Наименование типа товара" FontSize = "28" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="600" Name="TxtItemTypeName" MaxLength="50" Text="{Binding ItemTypeName}"/>
+        <Button Name="BtnSaveItemType" Click="BtnSaveItemTypeClick" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-140,0,0">
+            <TextBlock Text="Сохранить" FontSize = "28"/>
+        </Button>
+    </Grid>
+</Page>

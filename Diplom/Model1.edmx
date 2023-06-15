@@ -1,0 +1,742 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DiplomModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SalesItems">
+          <Key>
+            <PropertyRef Name="SaleId" />
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="SaleId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="Info" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TClients">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientSurname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientPatronymic" Type="varchar" MaxLength="50" />
+          <Property Name="ClientPhone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="ClientEmail" Type="varchar" MaxLength="80" />
+          <Property Name="ClientFIO" Type="varchar" MaxLength="350" />
+        </EntityType>
+        <EntityType Name="TItems">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemType" Type="int" Nullable="false" />
+          <Property Name="ItemMark" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemCount" Type="int" Nullable="false" />
+          <Property Name="ItemCost" Type="int" Nullable="false" />
+          <Property Name="ItemDetails" Type="varchar" MaxLength="200" />
+          <Property Name="ItemInf" Type="varchar" MaxLength="350" />
+        </EntityType>
+        <EntityType Name="TItemsTypes">
+          <Key>
+            <PropertyRef Name="ItemTypeId" />
+          </Key>
+          <Property Name="ItemTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TMark">
+          <Key>
+            <PropertyRef Name="MarkId" />
+          </Key>
+          <Property Name="MarkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarkName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOrders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderType" Type="int" Nullable="false" />
+          <Property Name="OrderClient" Type="int" />
+          <Property Name="OrderDetails" Type="varchar" MaxLength="200" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="OrderUser" Type="int" Nullable="false" />
+          <Property Name="OrderCost" Type="int" Nullable="false" />
+          <Property Name="OrderComplete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOrdersTypes">
+          <Key>
+            <PropertyRef Name="OrderTypeId" />
+          </Key>
+          <Property Name="OrderTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TSales">
+          <Key>
+            <PropertyRef Name="SaleId" />
+          </Key>
+          <Property Name="SaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleClient" Type="int" />
+          <Property Name="SaleDetails" Type="varchar" MaxLength="200" />
+          <Property Name="SaleDate" Type="date" Nullable="false" />
+          <Property Name="SaleUser" Type="int" Nullable="false" />
+          <Property Name="SaleCost" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TUsers">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserSurname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPatronymic" Type="varchar" MaxLength="50" />
+          <Property Name="UserLogin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="UserRole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TUsersRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Items_ItemsTypes">
+          <End Role="TItemsTypes" Type="Self.TItemsTypes" Multiplicity="1" />
+          <End Role="TItems" Type="Self.TItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TItemsTypes">
+              <PropertyRef Name="ItemTypeId" />
+            </Principal>
+            <Dependent Role="TItems">
+              <PropertyRef Name="ItemType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Models">
+          <End Role="TMark" Type="Self.TMark" Multiplicity="1" />
+          <End Role="TItems" Type="Self.TItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMark">
+              <PropertyRef Name="MarkId" />
+            </Principal>
+            <Dependent Role="TItems">
+              <PropertyRef Name="ItemMark" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Clients">
+          <End Role="TClients" Type="Self.TClients" Multiplicity="0..1" />
+          <End Role="TOrders" Type="Self.TOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TClients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="TOrders">
+              <PropertyRef Name="OrderClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_OrdersTypes">
+          <End Role="TOrdersTypes" Type="Self.TOrdersTypes" Multiplicity="1" />
+          <End Role="TOrders" Type="Self.TOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TOrdersTypes">
+              <PropertyRef Name="OrderTypeId" />
+            </Principal>
+            <Dependent Role="TOrders">
+              <PropertyRef Name="OrderType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="1" />
+          <End Role="TOrders" Type="Self.TOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TOrders">
+              <PropertyRef Name="OrderUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Clients">
+          <End Role="TClients" Type="Self.TClients" Multiplicity="0..1" />
+          <End Role="TSales" Type="Self.TSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TClients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="TSales">
+              <PropertyRef Name="SaleClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Users">
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="1" />
+          <End Role="TSales" Type="Self.TSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TSales">
+              <PropertyRef Name="SaleUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesItems_TItems">
+          <End Role="TItems" Type="Self.TItems" Multiplicity="1" />
+          <End Role="SalesItems" Type="Self.SalesItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TItems">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="SalesItems">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesItems_TSales">
+          <End Role="TSales" Type="Self.TSales" Multiplicity="1" />
+          <End Role="SalesItems" Type="Self.SalesItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSales">
+              <PropertyRef Name="SaleId" />
+            </Principal>
+            <Dependent Role="SalesItems">
+              <PropertyRef Name="SaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TUsers_TUsersRoles">
+          <End Role="TUsersRoles" Type="Self.TUsersRoles" Multiplicity="1" />
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsersRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="TUsers">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DiplomModelContainer">
+          <EntitySet Name="SalesItems" EntityType="Self.SalesItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TClients" EntityType="Self.TClients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TItems" EntityType="Self.TItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TItemsTypes" EntityType="Self.TItemsTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMark" EntityType="Self.TMark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOrders" EntityType="Self.TOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOrdersTypes" EntityType="Self.TOrdersTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSales" EntityType="Self.TSales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUsers" EntityType="Self.TUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUsersRoles" EntityType="Self.TUsersRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Items_ItemsTypes" Association="Self.FK_Items_ItemsTypes">
+            <End Role="TItemsTypes" EntitySet="TItemsTypes" />
+            <End Role="TItems" EntitySet="TItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Models" Association="Self.FK_Items_Models">
+            <End Role="TMark" EntitySet="TMark" />
+            <End Role="TItems" EntitySet="TItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Clients" Association="Self.FK_Orders_Clients">
+            <End Role="TClients" EntitySet="TClients" />
+            <End Role="TOrders" EntitySet="TOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_OrdersTypes" Association="Self.FK_Orders_OrdersTypes">
+            <End Role="TOrdersTypes" EntitySet="TOrdersTypes" />
+            <End Role="TOrders" EntitySet="TOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="TOrders" EntitySet="TOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Clients" Association="Self.FK_Sales_Clients">
+            <End Role="TClients" EntitySet="TClients" />
+            <End Role="TSales" EntitySet="TSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Users" Association="Self.FK_Sales_Users">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="TSales" EntitySet="TSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesItems_TItems" Association="Self.FK_SalesItems_TItems">
+            <End Role="TItems" EntitySet="TItems" />
+            <End Role="SalesItems" EntitySet="SalesItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesItems_TSales" Association="Self.FK_SalesItems_TSales">
+            <End Role="TSales" EntitySet="TSales" />
+            <End Role="SalesItems" EntitySet="SalesItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TUsers_TUsersRoles" Association="Self.FK_TUsers_TUsersRoles">
+            <End Role="TUsersRoles" EntitySet="TUsersRoles" />
+            <End Role="TUsers" EntitySet="TUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiplomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SalesItems">
+          <Key>
+            <PropertyRef Name="SaleId" />
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="SaleId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="Info" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TItems" Relationship="Self.FK_SalesItems_TItems" FromRole="SalesItems" ToRole="TItems" />
+          <NavigationProperty Name="TSales" Relationship="Self.FK_SalesItems_TSales" FromRole="SalesItems" ToRole="TSales" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TClients">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientPatronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="ClientFIO" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TOrders" Relationship="Self.FK_Orders_Clients" FromRole="TClients" ToRole="TOrders" />
+          <NavigationProperty Name="TSales" Relationship="Self.FK_Sales_Clients" FromRole="TClients" ToRole="TSales" />
+        </EntityType>
+        <EntityType Name="TItems">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemType" Type="Int32" Nullable="false" />
+          <Property Name="ItemMark" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemCount" Type="Int32" Nullable="false" />
+          <Property Name="ItemCost" Type="Int32" Nullable="false" />
+          <Property Name="ItemDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ItemInf" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SalesItems" Relationship="Self.FK_SalesItems_TItems" FromRole="TItems" ToRole="SalesItems" />
+          <NavigationProperty Name="TItemsTypes" Relationship="Self.FK_Items_ItemsTypes" FromRole="TItems" ToRole="TItemsTypes" />
+          <NavigationProperty Name="TMark" Relationship="Self.FK_Items_Models" FromRole="TItems" ToRole="TMark" />
+        </EntityType>
+        <EntityType Name="TItemsTypes">
+          <Key>
+            <PropertyRef Name="ItemTypeId" />
+          </Key>
+          <Property Name="ItemTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TItems" Relationship="Self.FK_Items_ItemsTypes" FromRole="TItemsTypes" ToRole="TItems" />
+        </EntityType>
+        <EntityType Name="TMark">
+          <Key>
+            <PropertyRef Name="MarkId" />
+          </Key>
+          <Property Name="MarkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarkName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TItems" Relationship="Self.FK_Items_Models" FromRole="TMark" ToRole="TItems" />
+        </EntityType>
+        <EntityType Name="TOrders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderType" Type="Int32" Nullable="false" />
+          <Property Name="OrderClient" Type="Int32" />
+          <Property Name="OrderDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OrderUser" Type="Int32" Nullable="false" />
+          <Property Name="OrderCost" Type="Int32" Nullable="false" />
+          <Property Name="OrderComplete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TClients" Relationship="Self.FK_Orders_Clients" FromRole="TOrders" ToRole="TClients" />
+          <NavigationProperty Name="TOrdersTypes" Relationship="Self.FK_Orders_OrdersTypes" FromRole="TOrders" ToRole="TOrdersTypes" />
+          <NavigationProperty Name="TUsers" Relationship="Self.FK_Orders_Users" FromRole="TOrders" ToRole="TUsers" />
+        </EntityType>
+        <EntityType Name="TOrdersTypes">
+          <Key>
+            <PropertyRef Name="OrderTypeId" />
+          </Key>
+          <Property Name="OrderTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TOrders" Relationship="Self.FK_Orders_OrdersTypes" FromRole="TOrdersTypes" ToRole="TOrders" />
+        </EntityType>
+        <EntityType Name="TSales">
+          <Key>
+            <PropertyRef Name="SaleId" />
+          </Key>
+          <Property Name="SaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleClient" Type="Int32" />
+          <Property Name="SaleDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SaleUser" Type="Int32" Nullable="false" />
+          <Property Name="SaleCost" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SalesItems" Relationship="Self.FK_SalesItems_TSales" FromRole="TSales" ToRole="SalesItems" />
+          <NavigationProperty Name="TClients" Relationship="Self.FK_Sales_Clients" FromRole="TSales" ToRole="TClients" />
+          <NavigationProperty Name="TUsers" Relationship="Self.FK_Sales_Users" FromRole="TSales" ToRole="TUsers" />
+        </EntityType>
+        <EntityType Name="TUsers">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPatronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TOrders" Relationship="Self.FK_Orders_Users" FromRole="TUsers" ToRole="TOrders" />
+          <NavigationProperty Name="TSales" Relationship="Self.FK_Sales_Users" FromRole="TUsers" ToRole="TSales" />
+          <NavigationProperty Name="TUsersRoles" Relationship="Self.FK_TUsers_TUsersRoles" FromRole="TUsers" ToRole="TUsersRoles" />
+        </EntityType>
+        <EntityType Name="TUsersRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TUsers" Relationship="Self.FK_TUsers_TUsersRoles" FromRole="TUsersRoles" ToRole="TUsers" />
+        </EntityType>
+        <Association Name="FK_SalesItems_TItems">
+          <End Role="TItems" Type="Self.TItems" Multiplicity="1" />
+          <End Role="SalesItems" Type="Self.SalesItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TItems">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="SalesItems">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesItems_TSales">
+          <End Role="TSales" Type="Self.TSales" Multiplicity="1" />
+          <End Role="SalesItems" Type="Self.SalesItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSales">
+              <PropertyRef Name="SaleId" />
+            </Principal>
+            <Dependent Role="SalesItems">
+              <PropertyRef Name="SaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Clients">
+          <End Role="TClients" Type="Self.TClients" Multiplicity="0..1" />
+          <End Role="TOrders" Type="Self.TOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TClients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="TOrders">
+              <PropertyRef Name="OrderClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Clients">
+          <End Role="TClients" Type="Self.TClients" Multiplicity="0..1" />
+          <End Role="TSales" Type="Self.TSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TClients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="TSales">
+              <PropertyRef Name="SaleClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_ItemsTypes">
+          <End Role="TItemsTypes" Type="Self.TItemsTypes" Multiplicity="1" />
+          <End Role="TItems" Type="Self.TItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TItemsTypes">
+              <PropertyRef Name="ItemTypeId" />
+            </Principal>
+            <Dependent Role="TItems">
+              <PropertyRef Name="ItemType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Models">
+          <End Role="TMark" Type="Self.TMark" Multiplicity="1" />
+          <End Role="TItems" Type="Self.TItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMark">
+              <PropertyRef Name="MarkId" />
+            </Principal>
+            <Dependent Role="TItems">
+              <PropertyRef Name="ItemMark" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_OrdersTypes">
+          <End Role="TOrdersTypes" Type="Self.TOrdersTypes" Multiplicity="1" />
+          <End Role="TOrders" Type="Self.TOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TOrdersTypes">
+              <PropertyRef Name="OrderTypeId" />
+            </Principal>
+            <Dependent Role="TOrders">
+              <PropertyRef Name="OrderType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="1" />
+          <End Role="TOrders" Type="Self.TOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TOrders">
+              <PropertyRef Name="OrderUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Users">
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="1" />
+          <End Role="TSales" Type="Self.TSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TSales">
+              <PropertyRef Name="SaleUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TUsers_TUsersRoles">
+          <End Role="TUsersRoles" Type="Self.TUsersRoles" Multiplicity="1" />
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsersRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="TUsers">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiplomEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SalesItems" EntityType="Self.SalesItems" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TClients" EntityType="Self.TClients" />
+          <EntitySet Name="TItems" EntityType="Self.TItems" />
+          <EntitySet Name="TItemsTypes" EntityType="Self.TItemsTypes" />
+          <EntitySet Name="TMark" EntityType="Self.TMark" />
+          <EntitySet Name="TOrders" EntityType="Self.TOrders" />
+          <EntitySet Name="TOrdersTypes" EntityType="Self.TOrdersTypes" />
+          <EntitySet Name="TSales" EntityType="Self.TSales" />
+          <EntitySet Name="TUsers" EntityType="Self.TUsers" />
+          <EntitySet Name="TUsersRoles" EntityType="Self.TUsersRoles" />
+          <AssociationSet Name="FK_SalesItems_TItems" Association="Self.FK_SalesItems_TItems">
+            <End Role="TItems" EntitySet="TItems" />
+            <End Role="SalesItems" EntitySet="SalesItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesItems_TSales" Association="Self.FK_SalesItems_TSales">
+            <End Role="TSales" EntitySet="TSales" />
+            <End Role="SalesItems" EntitySet="SalesItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Clients" Association="Self.FK_Orders_Clients">
+            <End Role="TClients" EntitySet="TClients" />
+            <End Role="TOrders" EntitySet="TOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Clients" Association="Self.FK_Sales_Clients">
+            <End Role="TClients" EntitySet="TClients" />
+            <End Role="TSales" EntitySet="TSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_ItemsTypes" Association="Self.FK_Items_ItemsTypes">
+            <End Role="TItemsTypes" EntitySet="TItemsTypes" />
+            <End Role="TItems" EntitySet="TItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Models" Association="Self.FK_Items_Models">
+            <End Role="TMark" EntitySet="TMark" />
+            <End Role="TItems" EntitySet="TItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_OrdersTypes" Association="Self.FK_Orders_OrdersTypes">
+            <End Role="TOrdersTypes" EntitySet="TOrdersTypes" />
+            <End Role="TOrders" EntitySet="TOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="TOrders" EntitySet="TOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Users" Association="Self.FK_Sales_Users">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="TSales" EntitySet="TSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TUsers_TUsersRoles" Association="Self.FK_TUsers_TUsersRoles">
+            <End Role="TUsersRoles" EntitySet="TUsersRoles" />
+            <End Role="TUsers" EntitySet="TUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DiplomModelContainer" CdmEntityContainer="DiplomEntities">
+          <EntitySetMapping Name="SalesItems">
+            <EntityTypeMapping TypeName="DiplomModel.SalesItems">
+              <MappingFragment StoreEntitySet="SalesItems">
+                <ScalarProperty Name="SaleId" ColumnName="SaleId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DiplomModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TClients">
+            <EntityTypeMapping TypeName="DiplomModel.TClients">
+              <MappingFragment StoreEntitySet="TClients">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientSurname" ColumnName="ClientSurname" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientPatronymic" ColumnName="ClientPatronymic" />
+                <ScalarProperty Name="ClientPhone" ColumnName="ClientPhone" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="ClientFIO" ColumnName="ClientFIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TItems">
+            <EntityTypeMapping TypeName="DiplomModel.TItems">
+              <MappingFragment StoreEntitySet="TItems">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="ItemMark" ColumnName="ItemMark" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
+                <ScalarProperty Name="ItemCost" ColumnName="ItemCost" />
+                <ScalarProperty Name="ItemDetails" ColumnName="ItemDetails" />
+                <ScalarProperty Name="ItemInf" ColumnName="ItemInf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TItemsTypes">
+            <EntityTypeMapping TypeName="DiplomModel.TItemsTypes">
+              <MappingFragment StoreEntitySet="TItemsTypes">
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="ItemTypeName" ColumnName="ItemTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TMark">
+            <EntityTypeMapping TypeName="DiplomModel.TMark">
+              <MappingFragment StoreEntitySet="TMark">
+                <ScalarProperty Name="MarkId" ColumnName="MarkId" />
+                <ScalarProperty Name="MarkName" ColumnName="MarkName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOrders">
+            <EntityTypeMapping TypeName="DiplomModel.TOrders">
+              <MappingFragment StoreEntitySet="TOrders">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+                <ScalarProperty Name="OrderClient" ColumnName="OrderClient" />
+                <ScalarProperty Name="OrderDetails" ColumnName="OrderDetails" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderUser" ColumnName="OrderUser" />
+                <ScalarProperty Name="OrderCost" ColumnName="OrderCost" />
+                <ScalarProperty Name="OrderComplete" ColumnName="OrderComplete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOrdersTypes">
+            <EntityTypeMapping TypeName="DiplomModel.TOrdersTypes">
+              <MappingFragment StoreEntitySet="TOrdersTypes">
+                <ScalarProperty Name="OrderTypeId" ColumnName="OrderTypeId" />
+                <ScalarProperty Name="OrderTypeName" ColumnName="OrderTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSales">
+            <EntityTypeMapping TypeName="DiplomModel.TSales">
+              <MappingFragment StoreEntitySet="TSales">
+                <ScalarProperty Name="SaleId" ColumnName="SaleId" />
+                <ScalarProperty Name="SaleClient" ColumnName="SaleClient" />
+                <ScalarProperty Name="SaleDetails" ColumnName="SaleDetails" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="SaleUser" ColumnName="SaleUser" />
+                <ScalarProperty Name="SaleCost" ColumnName="SaleCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUsers">
+            <EntityTypeMapping TypeName="DiplomModel.TUsers">
+              <MappingFragment StoreEntitySet="TUsers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPatronymic" ColumnName="UserPatronymic" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUsersRoles">
+            <EntityTypeMapping TypeName="DiplomModel.TUsersRoles">
+              <MappingFragment StoreEntitySet="TUsersRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

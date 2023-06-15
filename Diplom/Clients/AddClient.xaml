@@ -1,0 +1,42 @@
+﻿<Page x:Class="Diplom.Clients.AddClient"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.Clients"
+      mc:Ignorable="d" 
+      d:DesignHeight="660" d:DesignWidth="1280"
+      Title="AddClient">
+
+    <Grid Background="#FFD9F3CA" Margin="0,0,0,60">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Фамилия*" FontSize = "28" Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <TextBlock Grid.Row="1" FontSize = "28" Text="Имя*" Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <TextBlock Grid.Row="2" FontSize = "28" Text="Отчество " Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <TextBlock Grid.Row="3" FontSize = "28" Text="Телефон*" Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <TextBlock Grid.Row="4" FontSize = "28" Text="E-mail " Width="auto" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Text="{Binding ClientSurname}" MaxLength="25"/>
+        <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="{Binding ClientName}" MaxLength="25"/>
+        <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text="{Binding ClientPatronymic}" MaxLength="25"/>
+        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Text="{Binding ClientPhone}" PreviewTextInput="TxtPhoneChanged" Name="TxtPhone" Width="200" MaxLength="11"/>
+        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Width="auto" MinWidth="350" Text="{Binding ClientEmail}" MaxLength="50"/>
+
+
+        <Button Name="BtnSaveClient" Click="BtnSaveClientClick" Grid.Column="1" Grid.Row="5" Width="200" HorizontalAlignment="Right" Margin="0,0,15,0">
+            <TextBlock Text="Сохранить" FontSize = "28"/>
+        </Button>
+    </Grid>
+</Page>
